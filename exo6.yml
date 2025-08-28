@@ -1,0 +1,314 @@
+openapi: 3.0.0
+info:
+  title: API de gestion des profils utilisateurs
+  version: 1.0.0
+  description: API permettant la gestion des profils utilisateurs avec une décomposition en sous-ressources pour des mises à jour ciblées.
+
+servers:
+  - url: http://localhost:3000/api
+    description: Serveur de développement
+
+paths:
+  /users/{id}:
+    get:
+      summary: Récupère un utilisateur par son identifiant
+      description: Retourne toutes les informations d'un utilisateur spécifique
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      responses:
+        '200':
+          description: Détails de l'utilisateur
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+              examples:
+                userExample:
+                  value:
+                    identifier: "user-12345"
+                    first_name: "Alice"
+                    last_name: "Dupont"
+                    birthdate: "1990-05-15"
+                    email: "alice.dupont@example.com"
+                    address_street: "123 Rue de la Paix"
+                    address_city: "Paris"
+                    address_country: "France"
+                    address_postal_code: "75001"
+                    needs_newsletter: true
+                    language: "fr"
+        '404':
+          description: Utilisateur non trouvé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                notFound:
+                  value:
+                    error: "User not found"
+
+  /users:
+    post:
+      summary: Crée un ou plusieurs utilisateurs
+      description: Crée de nouveaux utilisateurs sans identifiants
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreateUserProfile'
+            examples:
+              createUsersExample:
+                value:
+                  - first_name: "Alice"
+                    last_name: "Dupont"
+                    birthdate: "1990-05-15"
+                    email: "alice.dupont@example.com"
+                    address_street: "123 Rue de la Paix"
+                    address_city: "Paris"
+                    address_country: "France"
+                    address_postal_code: "75001"
+                    needs_newsletter: true
+                    language: "fr"
+                  - first_name: "Bob"
+                    last_name: "Martin"
+                    birthdate: "1985-11-22"
+                    email: "bob.martin@example.com"
+                    address_street: "456 Avenue des Champs"
+                    address_city: "Lyon"
+                    address_country: "France"
+                    address_postal_code: "69002"
+                    needs_newsletter: false
+                    language: "eng"
+      responses:
+        '201':
+          description: Utilisateurs créés avec succès
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserProfile'
+              examples:
+                createdUsersExample:
+                  value:
+                    - identifier: "user-12345"
+                      first_name: "Alice"
+                      last_name: "Dupont"
+                      birthdate: "1990-05-15"
+                      email: "alice.dupont@example.com"
+                      address_street: "123 Rue de la Paix"
+                      address_city: "Paris"
+                      address_country: "France"
+                      address_postal_code: "75001"
+                      needs_newsletter: true
+                      language: "fr"
+                    - identifier: "user-67890"
+                      first_name: "Bob"
+                      last_name: "Martin"
+                      birthdate: "1985-11-22"
+                      email: "bob.martin@example.com"
+                      address_street: "456 Avenue des Champs"
+                      address_city: "Lyon"
+                      address_country: "France"
+                      address_postal_code: "69002"
+                      needs_newsletter: false
+                      language: "eng"
+
+  /users/{id}/personalInfo:
+    put:
+      summary: Met à jour les informations personnelles d'un utilisateur
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PersonalInfo'
+            examples:
+              updatePersonalInfoExample:
+                value:
+                  first_name: "Alice"
+                  last_name: "Dupont"
+                  birthdate: "1990-05-15"
+                  email: "alice.dupont@example.com"
+      responses:
+        '200':
+          description: Informations personnelles mises à jour avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+        '404':
+          description: Utilisateur non trouvé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/{id}/address:
+    put:
+      summary: Met à jour l'adresse d'un utilisateur
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Address'
+            examples:
+              updateAddressExample:
+                value:
+                  address_street: "123 Rue de la Paix"
+                  address_city: "Paris"
+                  address_country: "France"
+                  address_postal_code: "75001"
+      responses:
+        '200':
+          description: Adresse mise à jour avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+        '404':
+          description: Utilisateur non trouvé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /users/{id}/preferences:
+    put:
+      summary: Met à jour les préférences d'un utilisateur
+      parameters:
+        - $ref: '#/components/parameters/UserId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Preferences'
+            examples:
+              updatePreferencesExample:
+                value:
+                  needs_newsletter: true
+                  language: "fr"
+      responses:
+        '200':
+          description: Préférences mises à jour avec succès
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+        '404':
+          description: Utilisateur non trouvé
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+components:
+  parameters:
+    UserId:
+      name: id
+      in: path
+      required: true
+      description: Identifiant unique de l'utilisateur
+      schema:
+        type: string
+        pattern: '^[a-zA-Z0-9\-]+$'
+      example: "user-12345"
+
+  schemas:
+    UserProfile:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PersonalInfo'
+        - $ref: '#/components/schemas/Address'
+        - $ref: '#/components/schemas/Preferences'
+      properties:
+        identifier:
+          type: string
+          readOnly: true
+          example: "user-12345"
+      required:
+        - identifier
+
+    CreateUserProfile:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/PersonalInfo'
+        - $ref: '#/components/schemas/Address'
+        - $ref: '#/components/schemas/Preferences'
+
+    PersonalInfo:
+      type: object
+      properties:
+        first_name:
+          type: string
+          example: "Alice"
+        last_name:
+          type: string
+          example: "Dupont"
+        birthdate:
+          type: string
+          format: date
+          example: "1990-05-15"
+        email:
+          type: string
+          format: email
+          example: "alice.dupont@example.com"
+      required:
+        - first_name
+        - last_name
+        - birthdate
+        - email
+
+    Address:
+      type: object
+      properties:
+        address_street:
+          type: string
+          example: "123 Rue de la Paix"
+        address_city:
+          type: string
+          example: "Paris"
+        address_country:
+          type: string
+          example: "France"
+        address_postal_code:
+          type: string
+          pattern: '^\d+$'
+          example: "75001"
+      required:
+        - address_street
+        - address_city
+        - address_country
+        - address_postal_code
+
+    Preferences:
+      type: object
+      properties:
+        needs_newsletter:
+          type: boolean
+          example: true
+        language:
+          type: string
+          enum: [mg, fr, eng]
+          example: "fr"
+      required:
+        - needs_newsletter
+        - language
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          example: "Error message description"
+      required:
+        - error
