@@ -41,11 +41,11 @@ paths:
                   summary: Exemple de réponse réussie
                   value:
                     - id: 1
-                      name: "Alice"
-                      email: "alice@example.com"
+                      name: "Patty"
+                      email: "patty@example.com"
                     - id: 2
-                      name: "Bob"
-                      email: "bob@example.com"
+                      name: "Sandratra"
+                      email: "Sandratra@example.com"
         '400':
           description: Mauvais types de paramètres fournis
           content:
@@ -69,11 +69,11 @@ components:
           example: 1
         name:
           type: string
-          example: "Alice"
+          example: "Patty"
         email:
           type: string
           format: email
-          example: "alice@example.com"
+          example: "patty@example.com"
       required:
         - id
         - name
