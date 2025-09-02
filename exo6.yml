@@ -26,16 +26,16 @@ paths:
                 userExample:
                   value:
                     identifier: "user-12345"
-                    first_name: "Alice"
-                    last_name: "Dupont"
+                    first_name: "Rasoa"
+                    last_name: "Manana"
                     birthdate: "1990-05-15"
-                    email: "alice.dupont@example.com"
-                    address_street: "123 Rue de la Paix"
-                    address_city: "Paris"
-                    address_country: "France"
-                    address_postal_code: "75001"
+                    email: "rasoa@example.com"
+                    address_street: "123 Lalana Andoharanofotsy"
+                    address_city: "Antananarivo"
+                    address_country: "Madagascar"
+                    address_postal_code: "102"
                     needs_newsletter: true
-                    language: "fr"
+                    language: "mg"
         '404':
           description: Utilisateur non trouvé
           content:
@@ -45,7 +45,7 @@ paths:
               examples:
                 notFound:
                   value:
-                    error: "User not found"
+                    error: "Tsy hita ny mpampiasa"
 
   /users:
     post:
@@ -62,26 +62,26 @@ paths:
             examples:
               createUsersExample:
                 value:
-                  - first_name: "Alice"
-                    last_name: "Dupont"
+                  - first_name: "Randria"
+                    last_name: "Jimmy"
                     birthdate: "1990-05-15"
-                    email: "alice.dupont@example.com"
-                    address_street: "123 Rue de la Paix"
-                    address_city: "Paris"
-                    address_country: "France"
-                    address_postal_code: "75001"
+                    email: "Jim@example.com"
+                    address_street: "123 Lalana Andoharanofotsy"
+                    address_city: "Antananarivo"
+                    address_country: "Madagascar"
+                    address_postal_code: "102"
                     needs_newsletter: true
-                    language: "fr"
-                  - first_name: "Bob"
-                    last_name: "Martin"
+                    language: "mg"
+                  - first_name: "Jean"
+                    last_name: "Rakotomalala"
                     birthdate: "1985-11-22"
-                    email: "bob.martin@example.com"
-                    address_street: "456 Avenue des Champs"
-                    address_city: "Lyon"
-                    address_country: "France"
-                    address_postal_code: "69002"
+                    email: "jean.rakotomalala@example.com"
+                    address_street: "456 Lalana Analakely"
+                    address_city: "Antsirabe"
+                    address_country: "Madagascar"
+                    address_postal_code: "110"
                     needs_newsletter: false
-                    language: "eng"
+                    language: "mg"
       responses:
         '201':
           description: Utilisateurs créés avec succès
@@ -95,27 +95,27 @@ paths:
                 createdUsersExample:
                   value:
                     - identifier: "user-12345"
-                      first_name: "Alice"
-                      last_name: "Dupont"
+                      first_name: "Rasoa"
+                      last_name: "Randria"
                       birthdate: "1990-05-15"
-                      email: "alice.dupont@example.com"
-                      address_street: "123 Rue de la Paix"
-                      address_city: "Paris"
-                      address_country: "France"
-                      address_postal_code: "75001"
+                      email: "rasoa.randria@example.com"
+                      address_street: "123 Lalana Andoharanofotsy"
+                      address_city: "Antananarivo"
+                      address_country: "Madagascar"
+                      address_postal_code: "101"
                       needs_newsletter: true
-                      language: "fr"
+                      language: "mg"
                     - identifier: "user-67890"
-                      first_name: "Bob"
-                      last_name: "Martin"
+                      first_name: "Jean"
+                      last_name: "Rakotomalala"
                       birthdate: "1985-11-22"
-                      email: "bob.martin@example.com"
-                      address_street: "456 Avenue des Champs"
-                      address_city: "Lyon"
-                      address_country: "France"
-                      address_postal_code: "69002"
+                      email: "jean.rakotomalala@example.com"
+                      address_street: "456 Lalana Analakely"
+                      address_city: "Antsirabe"
+                      address_country: "Madagascar"
+                      address_postal_code: "110"
                       needs_newsletter: false
-                      language: "eng"
+                      language: "mg"
 
   /users/{id}/personalInfo:
     put:
@@ -131,10 +131,10 @@ paths:
             examples:
               updatePersonalInfoExample:
                 value:
-                  first_name: "Alice"
-                  last_name: "Dupont"
+                  first_name: "Ramanana"
+                  last_name: "Richars"
                   birthdate: "1990-05-15"
-                  email: "alice.dupont@example.com"
+                  email: "richard@example.com"
       responses:
         '200':
           description: Informations personnelles mises à jour avec succès
@@ -163,10 +163,10 @@ paths:
             examples:
               updateAddressExample:
                 value:
-                  address_street: "123 Rue de la Paix"
-                  address_city: "Paris"
-                  address_country: "France"
-                  address_postal_code: "75001"
+                  address_street: "123 Lalana Andoharanofotsy"
+                  address_city: "Antananarivo"
+                  address_country: "Madagascar"
+                  address_postal_code: "101"
       responses:
         '200':
           description: Adresse mise à jour avec succès
@@ -196,7 +196,7 @@ paths:
               updatePreferencesExample:
                 value:
                   needs_newsletter: true
-                  language: "fr"
+                  language: "mg"
       responses:
         '200':
           description: Préférences mises à jour avec succès
@@ -250,10 +250,10 @@ components:
       properties:
         first_name:
           type: string
-          example: "Alice"
+          example: "Rasoa"
         last_name:
           type: string
-          example: "Dupont"
+          example: "Randria"
         birthdate:
           type: string
           format: date
@@ -261,7 +261,7 @@ components:
         email:
           type: string
           format: email
-          example: "alice.dupont@example.com"
+          example: "rasoa.randria@example.com"
       required:
         - first_name
         - last_name
@@ -273,17 +273,17 @@ components:
       properties:
         address_street:
           type: string
-          example: "123 Rue de la Paix"
+          example: "123 Lalana Andoharanofotsy"
         address_city:
           type: string
-          example: "Paris"
+          example: "Antananarivo"
         address_country:
           type: string
-          example: "France"
+          example: "Madagascar"
         address_postal_code:
           type: string
           pattern: '^\d+$'
-          example: "75001"
+          example: "101"
       required:
         - address_street
         - address_city
@@ -299,7 +299,7 @@ components:
         language:
           type: string
           enum: [mg, fr, eng]
-          example: "fr"
+          example: "mg"
       required:
         - needs_newsletter
         - language
@@ -309,6 +309,6 @@ components:
       properties:
         error:
           type: string
-          example: "Error message description"
+          example: "Hadisoana"
       required:
         - error
